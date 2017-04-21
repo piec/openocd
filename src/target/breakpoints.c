@@ -232,9 +232,11 @@ int breakpoint_add(struct target *target,
 
 		while (head != (struct target_list *)NULL) {
 			curr = head->target;
-			retval = breakpoint_add_internal(curr, address, length, type);
-			if (retval != ERROR_OK)
-				return retval;
+			if (curr->examined) {
+				retval = breakpoint_add_internal(curr, address, length, type);
+				if (retval != ERROR_OK)
+					return retval;
+			}
 			head = head->next;
 		}
 		return retval;
