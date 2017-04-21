@@ -769,7 +769,7 @@ static int aarch64_step_restart_smp(struct target *target)
 
 			curr = head->target;
 
-			if (curr == target)
+			if (curr == target || !curr->examined)
 				continue;
 
 			retval = aarch64_check_state_one(curr,
